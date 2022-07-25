@@ -1,16 +1,48 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Github Page demo</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="index.js"></script>
-</head>
-<body>
-    <div id="main-content">
-
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div v-html="html"></div>
+      <p v-text="name"></p>
+      <p>{{fruit}}</p>
+      <p>{{age}}</p>
+      <input type="text" v-model="name" />
+      <div>
+        <button @click="changeName">变大</button>
+      </div>
     </div>
-</body>
+    <script  src="./test.js"></script>
+    <script>
+      const vue = new Vue({
+        el: "#app",
+        data: {
+          html: "<p></p>",
+          name: "小明",
+          fruit: "苹果",
+          age: 15
+        },
+        mounted() {
+          this.html = "<p>这是一个MVVM框架的演示</p>";
+          setTimeout(() => {
+            this.html = "<p>demo  小于18岁</p>";
+          }, 3000);
+        },
+        methods: {
+          changeName() {
+            this.fruit = this.fruit == "苹果" ? "西瓜" : "苹果";
+            this.age = this.age + 1;
+            if(this.age === 18){
+              this.html = "<p>demo  已经是18岁了</p>";
+            }else if(this.age > 18){
+              this.html = "<p>demo  已经超过18岁了</p>";
+            }
+          }
+        }
+      });
+    </script>
+  </body>
 </html>
